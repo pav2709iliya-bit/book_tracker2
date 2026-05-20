@@ -216,3 +216,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+# Байт‑код Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Виртуальные окружения
+venv/
+env/
+.venv/
+.env/
+
+# Файлы дистрибутивов и сборки
+dist/
+build/
+*.egg-info/
+
+# Кэш и результаты тестов
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE и редакторы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Локальные настройки и логи
+*.log
+.DS_Store
+Thumbs.db
