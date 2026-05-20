@@ -1,0 +1,71 @@
+import json
+from datetime import datetime
+
+def load_books():
+    try:
+        with open('books.json', 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return []
+
+def save_books(books):
+    with open('books.json', 'w') as f:
+        json.dump(books, f, indent=4)
+
+def delete_book():
+    books = load_books()  # Загружаем текущие книги
+
+    if not books:
+        print("Список книг пуст!")
+        return
+
+    # Показываем все книги с индексами
+    print("\nТекущий список книг:")
+    for i, book in enumerate(books):
+        print(f"{i + 1}. {book['title']} — {book['author']} (оценка: {book['rating']})")
+
+    # Запрос индекса для удаления
+    while True:
+        try:
+            choice = int(input("\nВведите номер книги для удаления (0 для отмены): "))
+            if choice == 0:
+                print("Удаление отменено.")
+                return
+            elif 1 <= choice <= len(books):
+                # Удаляем книгу по индексу (вычитаем 1, т. к. нумерация с 1)
+                removed_book = books.pop(choice - 1)
+                save_books(books)
+                print(f"Книга '{removed_book['title']}' успешно удалена!")
+                break
+            else:
+                print(f"Пожалуйста, введите число от 1 до {len(books)} или 0 для отмены.")
+        except ValueError:
+            print("Пожалуйста, введите целое число!")
+
+def main():
+    while True:
+        print("\n1. Добавить книгу")
+        print("2. Показать все книги")
+        print("3. Показать среднюю оценку")
+        print("4. Статистика по авторам")
+        print("5. Удалить книгу")
+        print("6. Выход")
+        choice = input("Выберите пункт: ")
+
+        if choice == '6':
+            break
+        elif choice == '1':
+            print("Функция в разработке...")
+        elif choice == '2':
+            print("Функция в развитии...")
+        elif choice == '3':
+            print("Функция в развитии...")
+        elif choice == '4':
+            print("Функция в развитии...")
+        elif choice == '5':
+           delete_book()
+        else:
+            print("Неверный выбор!")
+
+if __name__ == "__main__":
+    main()
