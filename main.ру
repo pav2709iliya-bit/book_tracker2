@@ -51,7 +51,7 @@ def add_book():
     print(f"Книга '{title}' успешно добавлена!")
 
 def delete_book():
-    books = load_books()
+    books = load_books()  # Загружаем текущие книги
 
     if not books:
         print("Список книг пуст!")
@@ -68,6 +68,7 @@ def delete_book():
                 print("Удаление отменено.")
                 return
             elif 1 <= choice <= len(books):
+                # Удаляем книгу по индексу (вычитаем 1, т. к. нумерация с 1)
                 removed_book = books.pop(choice - 1)
                 save_books(books)
                 print(f"Книга '{removed_book['title']}' успешно удалена!")
@@ -152,7 +153,7 @@ def main():
         if choice == '6':
             break
         elif choice == '1':
-            add_book()  # Исправлено: вызов функции вместо заглушки
+            add_book()
         elif choice == '2':
             show_all_books()
         elif choice == '3':
@@ -160,7 +161,7 @@ def main():
         elif choice == '4':
             show_author_stats()
         elif choice == '5':
-            delete_book()  # Исправлено: вызов функции вместо заглушки
+            delete_book()
         else:
             print("Неверный выбор!")
 
