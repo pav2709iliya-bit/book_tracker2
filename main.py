@@ -141,22 +141,29 @@ def delete_book():
 
 def main():
     while True:
-        print("\n1. Добавить книгу")
-        print("2. Показать все книги")
-        print("3. Показать среднюю оценку")
-        print("4. Статистика по авторам")
-        print("5. Удалить книгу")
-        print("6. Выход")
-        choice = input("Выберите пункт: ")
+        try:
+            print("\n1. Добавить книгу")
+            print("2. Показать все книги")
+            print("3. Показать среднюю оценку")
+            print("4. Статистика по авторам")
+            print("5. Удалить книгу")
+            print("6. Выход")
+            choice = input("Выберите пункт: ")
 
-        if choice == '6':
-            break
-        elif choice == '1':
-            # Здесь должна быть функция добавления книги
-            pass
-        elif choice == '2':
-            show_all_books()
-        elif choice == '3':
-            show_average_rating()
-        elif choice == '4':
-            show_author_stats()
+            if choice == '6':
+                print("До свидания!")
+                break
+            elif choice == '1':
+                add_book()
+            elif choice == '2':
+                show_all_books()
+            elif choice == '3':
+                show_average_rating()
+            elif choice == '4':
+                show_author_stats()
+            elif choice == '5':
+                delete_book()
+            else:
+                print("Неверный выбор! Попробуйте ещё раз.")
+        except Exception as e:
+            print(f"Произошла ошибка: {str(e)}")
