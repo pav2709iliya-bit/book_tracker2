@@ -5,12 +5,78 @@ def load_books():
     try:
         with open('books.json', 'r') as f:
             return json.load(f)
-    except FileNotFoundError:
+    except FileNotFoundError:  # Было: FileNotFoundError
         return []
+
 
 def save_books(books):
     with open('books.json', 'w') as f:
         json.dump(books, f, indent=4)
+
+def show_all_books():
+    books = load_books()
+
+    if not books:
+        print("Список книг пуст!")
+        return
+
+    print("\nВсе прочитанные книги:")
+    for i, book in enumerate(books, start=1):
+        print(f"{i}. {book['title']} — {book['author']}")
+        print(f"   Оценка: {book['rating']}/5")
+        print(f"   Дата прочтения: {book['date']}")
+        print("-" * 30)
+
+def show_average_rating():
+    books = load_books()
+
+    if not books:
+        print("Список книг пуст!")
+        return
+
+    total_rating = sum(book['rating'] for book in books)
+    average = total_rating / len(books)
+
+    print(f"\nСредняя оценка всех книг: {average:.2f}/5")
+    print(f"Всего оценено книг: {len(books)}")
+
+def show_author_stats():
+    books = load_books()
+
+    if not books:
+        print("Список книг пуст!")
+        return
+
+    # Собираем статистику по авторам
+    author_counts = {}
+    author_ratings = {}
+
+    for book in books:
+        author = book['author']
+        rating = book['rating']
+
+        # Считаем количество книг каждого автора
+        if author in author_counts:
+            author_counts[author] += 1
+            author_ratings[author].append(rating)
+        else:
+            author_counts[author] = 1
+            author_ratings[author] = [rating]
+
+    # Выводим статистику
+    print("\nСтатистика по авторам:")
+    print("-=" * 20)
+
+    for author in sorted(author_counts.keys()):
+        count = author_counts[author]
+        ratings = author_ratings[author]
+        avg_rating = sum(ratings) / len(ratings)
+
+        print(f"{author}:")
+        print(f"   Книг прочитано: {count}")
+        print(f"   Средняя оценка: {avg_rating:.2f}/5")
+        print(f"   Оценки: {', '.join(map(str, ratings))}")
+        print()
 
 def main():
     while True:
@@ -25,15 +91,15 @@ def main():
         if choice == '6':
             break
         elif choice == '1':
-            print("Функция в разработке...")
+            add_book()
         elif choice == '2':
-            print("Функция в развитии...")
+             show_all_books()
         elif choice == '3':
-            print("Функция в развитии...")
+            show_average_rating()
         elif choice == '4':
-            print("Функция в развитии...")
+            show_author_stats()
         elif choice == '5':
-            print("Функция в развитии...")
+           delete_book()
         else:
             print("Неверный выбор!")
 
