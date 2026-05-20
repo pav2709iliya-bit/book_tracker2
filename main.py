@@ -11,6 +11,39 @@ def load_books():
 def save_books(books):
     with open('books.json', 'w') as f:
         json.dump(books, f, indent=4)
+def add_book():
+    books = load_books()
+    author = input("Автор: ")
+    title = input("Название: ")
+
+    # Проверка на дубликаты
+    for book in books:
+        if book['author'] == author and book['title'] == title:
+            print("Эта книга уже есть в списке!")
+            return
+
+    while True:
+        try:
+            rating = int(input("Оценка (1-5): "))
+            if 1 <= rating <= 5:
+                break
+            else:
+                print("Оценка должна быть от 1 до 5!")
+        except ValueError:
+            print("Введите число!")
+
+    date = input("Дата прочтения (например, 2024-05-20): ")
+
+    new_book = {
+        'author': author,
+        'title': title,
+        'rating': rating,
+        'date': date
+    }
+
+    books.append(new_book)
+    save_books(books)
+    print("Книга добавлена!")
 
 def main():
     while True:
@@ -25,7 +58,7 @@ def main():
         if choice == '6':
             break
         elif choice == '1':
-            print("Функция в разработке...")
+             add_book()
         elif choice == '2':
             print("Функция в развитии...")
         elif choice == '3':
