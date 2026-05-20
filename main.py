@@ -1,6 +1,44 @@
 import json
 from datetime import datetime
 
+def add_book():
+    books = load_books()
+    
+    author = input("Введите автора: ")
+    title = input("Введите название книги: ")
+    
+    # Проверка на дубликаты
+    for book in books:
+        if book['author'].lower() == author.lower() and book['title'].lower() == title.lower():
+            print("Ошибка: Эта книга уже есть в списке!")
+            return
+    
+    # Валидация оценки
+    while True:
+        try:
+            rating = int(input("Введите оценку (1-5): "))
+            if 1 <= rating <= 5:
+                break
+            else:
+                print("Оценка должна быть от 1 до 5!")
+        except ValueError:
+            print("Пожалуйста, введите целое число!")
+    
+    date = input("Введите дату прочтения (опционально): ")
+    if not date:
+        date = "Не указана"
+    
+    new_book = {
+        'author': author,
+        'title': title,
+        'rating': rating,
+        'date': date
+    }
+    
+    books.append(new_book)
+    save_books(books)
+    print(f"Книга '{title}' успешно добавлена!")
+
 def load_books():
     try:
         with open('books.json', 'r') as f:
