@@ -159,4 +159,4 @@ def main():
         elif choice == '3':
             show_average_rating()
         elif choice == '4':
-            show_author_stats
+            show_author_stats()
